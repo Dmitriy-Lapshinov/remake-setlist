@@ -22,7 +22,8 @@
 <section class="suggestion-box" aria-labelledby="suggestionTitle"><h2 id="suggestionTitle">Не нашли свою любимую песню?</h2><p>Предложите свой вариант.</p><form class="suggestion-form" id="suggestionForm"><label class="visually-hidden" for="suggestionInput">Название песни и исполнитель</label><input id="suggestionInput" type="text" maxlength="180" autocomplete="off" placeholder="Исполнитель — название песни"><button class="button primary" type="submit">Добавить</button></form></section>
 </main><button class="scroll-top" id="scrollToTop" type="button" aria-label="Наверх" title="Наверх"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7"/></svg></button><div class="toast" id="toast" role="status"></div>
 <script>const storageKey='remake-setlist-yandex-v1';
-const layoutStorageKey='remake-setlist-layout-v1';\nconst suggestionsStorageKey='remake-setlist-suggestions-v1';
+const layoutStorageKey='remake-setlist-layout-v1';
+const suggestionsStorageKey='remake-setlist-suggestions-v1';
 let songs=[];
 let setlistItems=[];
 let catalogLoading=true,catalogError='';
