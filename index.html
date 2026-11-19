@@ -16,6 +16,9 @@
 .app-header h1{display:block;height:auto;max-height:none;overflow:visible}
 .app-header .subtitle{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;margin:6px 0 0!important;color:var(--muted)}
 .catalog-gap{height:0!important;margin:0!important;padding:0!important}
+
+/* The sticky catalog backdrop must not cover the intro above it. */
+.catalog-heading::before{content:none!important;display:none!important}
 </style>
 </head>
 <body>
