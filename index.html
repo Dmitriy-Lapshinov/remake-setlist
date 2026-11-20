@@ -66,6 +66,9 @@ main{padding-top:20px}
  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
 
+
+/* Cover scrolled content behind the Telegram chrome while the catalog is pinned. */
+body.catalog-stuck::before{content:"";position:fixed;z-index:39;top:0;left:0;right:0;height:var(--catalog-cover-height,0px);background:var(--app-bg);pointer-events:none}
 </style>
 </head>
 <body>
@@ -136,4 +139,8 @@ function syncTelegramSafeArea(){const webApp=window.Telegram?.WebApp;if(!webApp)
 const fixedDock=document.getElementById('fixedDock');function syncFixedDockHeight(){document.documentElement.style.setProperty('--fixed-dock-height',fixedDock.getBoundingClientRect().height+'px')}syncFixedDockHeight();if('ResizeObserver' in window){const fixedDockObserver=new ResizeObserver(syncFixedDockHeight);fixedDockObserver.observe(fixedDock)}window.addEventListener('resize',syncFixedDockHeight);
 render();
 loadRepertoire();
-const bottomRepeat=document.getElementById('bottomRepeat'),toggleBottomSetlist=document.getElementById('toggleBottomSetlist'),bottomSetlist=document.getElementById('bottomSetlist');toggleBottomSetlist.addEventListener('click',()=>{const expanded=toggleBottomSetlist.getAttribute('aria-expanded')==='true';toggleBottomSetlist.setAttribute('aria-expanded',String(!expanded));bottomSelectedSongs.hidden=expanded;bottomSetlist.classList.toggle('expanded',!expanded)});document.getElementById('copyListBottom').addEventListener('click',()=>document.getElementById('copyList').click());const scrollToTopButton=document.getElementById('scrollToTop');function syncScrollToTopButton(){const pageAtBottom=window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-40;scrollToTopButton.classList.toggle('visible',window.scrollY>240&&!pageAtBottom)}window.addEventListener('scroll',syncScrollToTopButton,{passive:true});window.addEventListener('resize',syncScrollToTopButton);scrollToTopButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));syncScrollToTopButton();</script></body></html>
+const bottomRepeat=document.getElementById('bottomRepeat'),toggleBottomSetlist=document.getElementById('toggleBottomSetlist'),bottomSetlist=document.getElementById('bottomSetlist');toggleBottomSetlist.addEventListener('click',()=>{const expanded=toggleBottomSetlist.getAttribute('aria-expanded')==='true';toggleBottomSetlist.setAttribute('aria-expanded',String(!expanded));bottomSelectedSongs.hidden=expanded;bottomSetlist.classList.toggle('expanded',!expanded)});document.getElementById('copyListBottom').addEventListener('click',()=>document.getElementById('copyList').click());const scrollToTopButton=document.getElementById('scrollToTop');function syncScrollToTopButton(){const pageAtBottom=window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-40;scrollToTopButton.classList.toggle('visible',window.scrollY>240&&!pageAtBottom)}window.addEventListener('scroll',syncScrollToTopButton,{passive:true});window.addEventListener('resize',syncScrollToTopButton);scrollToTopButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));syncScrollToTopButton();</script>
+<script>
+(()=>{const heading=document.getElementById('catalogHeading');if(!heading)return;let frame=0;const update=()=>{frame=0;const rect=heading.getBoundingClientRect();const top=parseFloat(getComputedStyle(heading).top)||0;const pinned=rect.top<=top+1&&rect.bottom>top+1;document.body.classList.toggle('catalog-stuck',pinned);document.documentElement.style.setProperty('--catalog-cover-height',Math.max(0,Math.ceil(rect.top))+'px')};const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule,{passive:true});update()})();
+</script>
+</body></html>
